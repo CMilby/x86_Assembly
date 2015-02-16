@@ -1,11 +1,12 @@
 
 section .data
-	msg db "Call", 0x0a
 
 section .text
 
+; External Methods
 extern print_call
 
+; Global Function Decleration
 global absolute_value
 global factorial
 global is_negative
@@ -41,24 +42,24 @@ factorial_loop:
 	mov r14, rax				; Move total to r14
 	cmp r15, 1 					; Compare counter to 1
 	jne factorial_loop			; If not equal, loop
-	mov r15, r14
-	ret
+	mov r15, r14 				; Move value to r14 
+	ret 						; Return 	
 
 ; - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 absolute_value: 				; Assume number in r15
 	push r15
 	call is_negative 			; Check if negative 
 	cmp r15, -1 				; Compare return value to -1 
-	je absolute_value_negative 
-	pop r15
-	ret
+	je absolute_value_negative 	; Handles negative values 
+	pop r15						; Removed r15 from stack cause it's positibe
+	ret 						; Return
 
-absolute_value_negative:
-	pop rax
-	mov rdx, -1
-	imul rdx
-	mov r15, rax
-	ret 
+absolute_value_negative:		; Handle negative values 
+	pop rax 					; Remove number off stack so it can be made positive
+	mov rdx, -1 				; Get ready to flip sign  
+	imul rdx					; Signed Multiply by -1
+	mov r15, rax 				; Move positive value to r15 
+	ret 						; Return 
 
 ; - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 to_power:						; Assume power in r14, value in r15
@@ -79,11 +80,11 @@ to_power_loop:
 is_prime:						; Assume integer in r15
 	mov rax, r15				; Move r15 to rax for divison
 	xor rdx, rdx				; Avoids error
-	mov rcx, 2			
+	mov rcx, 2					; Divisor
 	div rcx						; rax = rdx:rax / rcx|rdx = rdx:rax % rcx
 	cmp rdx, 0					; If remainder is 0, not prime
 	je is_prime_not_exit		; Not prime, exit
-	mov r14, 3
+	mov r14, 3					; Inital count value
 
 is_prime_loop:					; Loop to check for primes
 	mov rax, r15				; Move r15 to rax for division
