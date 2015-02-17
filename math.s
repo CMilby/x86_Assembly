@@ -1,5 +1,7 @@
 
 section .data
+	PI dd 3.141592653589793	; Declare a 4-byte variable for PI 
+	E dd 2.718281828459045 	; Declare a 4-byte variable for E 
 
 section .text
 
@@ -8,11 +10,50 @@ extern print_call
 
 ; Global Function Decleration
 global absolute_value
+global clamp
 global factorial
 global is_negative
 global is_prime
+global max 
+global min 
 global print_integer
 global to_power
+
+; - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+clamp:							; Min in r13, Max in r14, Value in r15 
+	cmp r15, r13 				; Compare value to min 
+	jl clamp_min 				; If less than min handle min 
+	cmp r15, r14 				; Compare value to max 
+	jg clamp_max				; If greater than max handle max 
+ 	ret  						; Return 
+
+clamp_min: 						; Handle value less than min 
+	mov r15, r13				; Move min to r15 
+	ret 						; Return
+
+clamp_max: 						; Handle values greater than max 
+	mov r15, r14 				; Move max to r15 
+	ret  						; Return 
+
+; - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+min:							; Values in r14 and r15
+	cmp r14, r15  				; Compare two calues 
+	jl min_r14  				; If r14 is less then call min_r14 
+	ret    						; Return 
+
+min_r14: 						; Handles less value in r14 
+	mov r15, r14 				; Move min value to r15
+	ret 						; Return
+
+; - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+max: 							; Values in r14 and r15 
+	cmp r14, r15 				; Compare two values 
+ 	jg max_r14 					; If r14 is greater then call max_r14
+ 	ret  						; Return
+
+max_r14: 						; Handles greater value im r14 
+	mov r15, r14 				; Moves greater value to r15
+	ret 						; Return 
 
 ; - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 is_negative:					; Assume value in r15
