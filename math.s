@@ -12,12 +12,32 @@ extern print_call
 global absolute_value
 global clamp
 global factorial
+global fibonacci 
 global is_negative
 global is_prime
 global max 
 global min 
 global print_integer
 global to_power
+
+; - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+fibonacci:						; Assume index in r15
+	mov r14, 0 					; Initial value 0 
+	mov r13, 1 					; Initial value 1
+	mov r12, 0 					; Total (Fibonacci number)
+
+fibonacci_loop: 				; Loop to get fibonacci numbr 
+	mov r14, r12  				; Move total into a
+	push r13 					; Store b on stack 
+	add r13, r14 				; Add a and b  
+	mov r12, r13  				; Move a + b to total 
+	pop r13 					; Pop b off stack 
+	mov r13, r14 				; Move a to b
+	dec r15 					; Decrement counter 
+	cmp r15, 0 					; Compare counter to 0 
+	jg fibonacci_loop 			; Greater than 0 then loop 
+	mov r15, r12 				; Move total to r15 for return 
+	ret 						; Return 
 
 ; - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 clamp:							; Min in r13, Max in r14, Value in r15 

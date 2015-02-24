@@ -26,6 +26,7 @@ safe_exit:
 	mov rdi, 0				; Exit	
 	syscall					; Invoke kernal
 	
+; Look 100% sure this doesn't work 
 string_length:				; Assume string in r15
 	xor al, al
 	lea rdi, [r15]

@@ -6,6 +6,7 @@ section .text
 extern absolute_value
 extern clamp 
 extern factorial
+extern fibonacci
 extern min 
 extern max
 extern to_power
@@ -21,6 +22,16 @@ extern safe_exit
 global start
 
 start:
+	; -- Fibonacci --
+	mov r15, 9
+	call fibonacci
+	mov r10, 'Fib: '
+	push r10
+	mov rsi, rsp
+	mov rdx, 5
+	call print_string
+	call print_integer
+
 	; -- Absolute Value -- 
 	mov r15, -124
 	call absolute_value
