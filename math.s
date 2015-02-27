@@ -28,14 +28,14 @@ modulo:							; Assume r15 % r14
 	xor rdx, rdx 				; Clear rdx 
 	mov rcx, r14 				; Move r14 to rcx for division
 	idiv rcx 					; Divide 
-	mov r15, rdx 
-	ret 
+	mov r15, rdx 				; Move remaineder to r15 
+	ret  						; Return 
 
 ; - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 print_floating_point: 			; Assume value in r15 	
-	fld qword [esp]
-	fmul st0, st0
-	fsqrt 
+	fld qword [esp] 			; Not done!!!!
+	fmul st0, st0 				; Not done!!!!
+	fsqrt 						; Not done!!!!
 	ret 						; Return  
 
 ; - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
