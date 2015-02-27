@@ -9,6 +9,7 @@ extern factorial
 extern fibonacci
 extern min 
 extern max
+extern modulo
 extern to_power
 
 extern is_negative
@@ -22,6 +23,17 @@ extern safe_exit
 global start
 
 start:
+	; -- Modulo --
+	mov r15, 9
+	mov r14, 5
+	call modulo
+	mov r10, '9%5: '
+	push r10
+	mov rsi, rsp
+	mov rdx, 5
+	call print_string
+	call print_integer
+
 	; -- Fibonacci --
 	mov r15, 9
 	call fibonacci

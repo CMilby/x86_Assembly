@@ -17,8 +17,26 @@ global is_negative
 global is_prime
 global max 
 global min 
+global modulo
+global print_floating_point
 global print_integer
 global to_power
+
+; - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+modulo:							; Assume r15 % r14 
+	mov rax, r15 				; Move r15 to rax for division 
+	xor rdx, rdx 				; Clear rdx 
+	mov rcx, r14 				; Move r14 to rcx for division
+	idiv rcx 					; Divide 
+	mov r15, rdx 
+	ret 
+
+; - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+print_floating_point: 			; Assume value in r15 	
+	fld qword [esp]
+	fmul st0, st0
+	fsqrt 
+	ret 						; Return  
 
 ; - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 fibonacci:						; Assume index in r15
